@@ -3,48 +3,48 @@ var router = express.Router();
 
 var checkLogin = require('../middlewares/check').checkLogin;
 
-// / GET /posts ËùÓĞÓÃ»§»òÕßÌØ¶¨ÓÃ»§µÄÎÄÕÂÒ³
+// GET /posts æ‰€æœ‰ç”¨æˆ·æˆ–è€…ç‰¹å®šç”¨æˆ·çš„æ–‡ç« é¡µ
 //   eg: GET /posts?author=xxx
 router.get('/', function(req, res, next) {
   res.send(req.flash());
 });
 
-// POST /posts ·¢±íÒ»ÆªÎÄÕÂ
+// POST /posts å‘è¡¨ä¸€ç¯‡æ–‡ç« 
 router.post('/', checkLogin, function(req, res, next) {
   res.send(req.flash());
 });
 
-// GET /posts/create ·¢±íÎÄÕÂÒ³
+// GET /posts/create å‘è¡¨æ–‡ç« é¡µ
 router.get('/create', checkLogin, function(req, res, next) {
   res.send(req.flash());
 });
 
-// GET /posts/:postId µ¥¶ÀÒ»ÆªµÄÎÄÕÂÒ³
+// GET /posts/:postId å•ç‹¬ä¸€ç¯‡çš„æ–‡ç« é¡µ
 router.get('/:postId', function(req, res, next) {
   res.send(req.flash());
 });
 
-// GET /posts/:postId/edit ¸üĞÂÎÄÕÂÒ³
+// GET /posts/:postId/edit æ›´æ–°æ–‡ç« é¡µ
 router.get('/:postId/edit', checkLogin, function(req, res, next) {
   res.send(req.flash());
 });
 
-// POST /posts/:postId/edit ¸üĞÂÒ»ÆªÎÄÕÂ
+// POST /posts/:postId/edit æ›´æ–°ä¸€ç¯‡æ–‡ç« 
 router.post('/:postId/edit', checkLogin, function(req, res, next) {
   res.send(req.flash());
 });
 
-// GET /posts/:postId/remove É¾³ıÒ»ÆªÎÄÕÂ
+// GET /posts/:postId/remove åˆ é™¤ä¸€ç¯‡æ–‡ç« 
 router.get('/:postId/remove', checkLogin, function(req, res, next) {
   res.send(req.flash());
 });
 
-// POST /posts/:postId/comment ´´½¨Ò»ÌõÁôÑÔ
+// POST /posts/:postId/comment åˆ›å»ºä¸€æ¡ç•™è¨€
 router.post('/:postId/comment', checkLogin, function(req, res, next) {
   res.send(req.flash());
 });
 
-// GET /posts/:postId/comment/:commentId/remove É¾³ıÒ»ÌõÁôÑÔ
+// GET /posts/:postId/comment/:commentId/remove åˆ é™¤ä¸€æ¡ç•™è¨€
 router.get('/:postId/comment/:commentId/remove', checkLogin, function(req, res, next) {
   res.send(req.flash());
 });

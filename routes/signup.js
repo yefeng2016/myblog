@@ -3,12 +3,12 @@ var router = express.Router();
 
 var checkNotLogin = require('../middlewares/check').checkNotLogin;
 
-// GET /signup ×¢²áÒ³
+// GET /signup æ³¨å†Œé¡µ
 router.get('/', checkNotLogin, function(req, res, next) {
-  res.send(req.flash());
+  res.render('signup');
 });
 
-// POST /signup ÓÃ»§×¢²á
+// POST /signup ç”¨æˆ·æ³¨å†Œ
 router.post('/', checkNotLogin, function(req, res, next) {
   res.send(req.flash());
 });

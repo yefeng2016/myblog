@@ -9,31 +9,45 @@ var pkg = require('./package');
 
 var app = express();
 
-// ÉèÖÃÄ£°åÄ¿Â¼
+// è®¾ç½®æ¨¡æ¿ç›®å½•
 app.set('views', path.join(__dirname, 'views'));
-// ÉèÖÃÄ£°åÒıÇæÎª ejs
+// è®¾ç½®æ¨¡æ¿å¼•æ“ä¸º ejs
 app.set('view engine', 'ejs');
 
-// ÉèÖÃ¾²Ì¬ÎÄ¼şÄ¿Â¼
+// è®¾ç½®é™æ€æ–‡ä»¶ç›®å½•
 app.use(express.static(path.join(__dirname, 'public')));
-// session ÖĞ¼ä¼ş
+// session ä¸­é—´ä»¶
 app.use(session({
-  name: config.session.key,// ÉèÖÃ cookie ÖĞ±£´æ session id µÄ×Ö¶ÎÃû³Æ
-  secret: config.session.secret,// Í¨¹ıÉèÖÃ secret À´¼ÆËã hash Öµ²¢·ÅÔÚ cookie ÖĞ£¬Ê¹²úÉúµÄ signedCookie ·À´Û¸Ä
+  name: config.session.key,// è®¾ç½® cookie ä¸­ä¿å­˜ session id çš„å­—æ®µåç§°
+  secret: config.session.secret,// é€šè¿‡è®¾ç½® secret æ¥è®¡ç®— hash å€¼å¹¶æ”¾åœ¨ cookie ä¸­ï¼Œä½¿äº§ç”Ÿçš„ signedCookie é˜²ç¯¡æ”¹
   cookie: {
-    maxAge: config.session.maxAge// ¹ıÆÚÊ±¼ä£¬¹ıÆÚºó cookie ÖĞµÄ session id ×Ô¶¯É¾³ı
+    maxAge: config.session.maxAge// è¿‡æœŸæ—¶é—´ï¼Œè¿‡æœŸå cookie ä¸­çš„ session id è‡ªåŠ¨åˆ é™¤
   },
-  store: new MongoStore({// ½« session ´æ´¢µ½ mongodb
-    url: config.mongodb// mongodb µØÖ·
+  store: new MongoStore({// å°† session å­˜å‚¨åˆ° mongodb
+    url: config.mongodb// mongodb åœ°å€
   })
 }));
-// flash ÖĞ¼ä¼ş£¬ÓÃÀ´ÏÔÊ¾Í¨Öª
+// flash ä¸­é—´ä»¶ï¼Œç”¨æ¥æ˜¾ç¤ºé€šçŸ¥
 app.use(flash());
 
-// Â·ÓÉ
+// è®¾ç½®æ¨¡æ¿å…¨å±€å¸¸é‡
+app.locals.blog = {
+  title: pkg.name,
+  description: pkg.description
+};
+
+// æ·»åŠ æ¨¡æ¿å¿…éœ€çš„ä¸‰ä¸ªå˜é‡
+app.use(function (req, res, next) {
+  res.locals.user = req.session.user;
+  res.locals.success = req.flash('success').toString();
+  res.locals.error = req.flash('error').toString();
+  next();
+});
+
+// è·¯ç”±
 routes(app);
 
-// ¼àÌı¶Ë¿Ú£¬Æô¶¯³ÌĞò
+// ç›‘å¬ç«¯å£ï¼Œå¯åŠ¨ç¨‹åº
 app.listen(config.port, function () {
   console.log(`${pkg.name} listening on port ${config.port}`);
 });

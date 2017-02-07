@@ -3,7 +3,7 @@ var router = express.Router();
 
 var checkLogin = require('../middlewares/check').checkLogin;
 
-// GET /signout µÇ³ö
+// GET /signout ç™»å‡º
 router.get('/', checkLogin, function(req, res, next) {
   res.send(req.flash());
 });
